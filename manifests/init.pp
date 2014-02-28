@@ -1,39 +1,40 @@
 # == Class: simpleid
 #
-# Full description of class simpleid here.
+# Installs SimpleID. This is a very naive PHP app installer that can optionally
+# control Apache.
 #
 # === Parameters
 #
-# Document parameters here.
+# [*baseurl*]
+#   The base URL for the OpenID domain to be managed
 #
-# [*sample_parameter*]
-#   Explanation of what this parameter affects and what it defaults to.
-#   e.g. "Specify one or more upstream ntp servers as an array."
+# [*webroot*]
+#   Directory under which to place the simpleid directories. Defaults to the
+#   parent directory of the OS native Apache webroot.
 #
-# === Variables
+# [*webuser*]
+#   User under which the webserver runs. Defaults to OS native for Apache
 #
-# Here you should define a list of variables that this module would require.
+# [*webgroup*]
+#   Group under which the webserver runs. Defaults to OS native for Apache
 #
-# [*sample_variable*]
-#   Explanation of how this variable affects the funtion of this class and if
-#   it has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#   External Node Classifier as a comma separated list of hostnames." (Note,
-#   global variables should be avoided in favor of class parameters as
-#   of Puppet 2.6.)
+# [*app_source*]
+#   Location of the SimpleID download tarball. Defaults to
+#   http://downloads.sourceforge.net/project/simpleid/simpleid/0.8.5/simpleid-0.8.5.tar.gz
 #
 # === Examples
 #
 #  class { simpleid:
-#    servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
+#    $baseurl = 'https://www.example.com',
 #  }
 #
 # === Authors
 #
-# Author Name <author@domain.com>
+# Eric Shamow <eric@puppetlabs.com>
 #
 # === Copyright
 #
-# Copyright 2014 Your name here, unless otherwise noted.
+# Copyright 2014 Puppet Labs
 #
 class simpleid(
   $baseurl    = undef,
