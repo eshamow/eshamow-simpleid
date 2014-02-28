@@ -36,16 +36,17 @@
 # Copyright 2014 Your name here, unless otherwise noted.
 #
 class simpleid(
-  $baseurl  = undef,
-  $webroot  = $simpleid::params::webroot,
-  $webuser  = $simpleid::params::webuser,
-  $webgroup = $simplid::params::webgroup,
-) {
+  $baseurl    = undef,
+  $webroot    = $simpleid::params::webroot,
+  $webuser    = $simpleid::params::webuser,
+  $webgroup   = $simplid::params::webgroup,
+  $app_source = $simpleid::params::app_source,
+) inherits simpleid::params {
   if $baseurl == undef {
     fail('You must define the $baseurl variable for class simpleid.')
   }
   staging::file { 'simpleid.tar.gz':
-    source => 'http://downloads.sourceforge.net/project/simpleid/simpleid/0.8.5/simpleid-0.8.5.tar.gz',
+    source => $app_source,
   }
   staging::extract { 'simpleid.tar.gz':
     target  => "${webroot}",
