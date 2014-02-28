@@ -35,7 +35,43 @@
 #
 # Copyright 2014 Your name here, unless otherwise noted.
 #
-class simpleid {
-
-
+class simpleid(
+  $baseurl  = undef,
+  $webroot  = $simpleid::params::webroot,
+  $webuser  = $simpleid::params::webuser,
+  $webgroup = $simplid::params::webgroup,
+) {
+  if $baseurl == undef {
+    fail('You must define the $baseurl variable for class simpleid.')
+  }
+  staging::file { 'simpleid.tar.gz':
+    source => 'http://downloads.sourceforge.net/project/simpleid/simpleid/0.8.5/simpleid-0.8.5.tar.gz',
+  }
+  staging::extract { 'simpleid.tar.gz':
+    target  => "${webroot}",
+    creates => "${webroot}/simpleid",
+    require => Staging::File['simpleid.tar.gz'],
+  }
+  file { "${webroot}/simpleid":
+    ensure  => directory,
+    owner   => $webuser,
+    group   => $webgroup,
+    mode    => '750',
+    recurse => true,
+    require => Staging::Extract['simpleid.tar.gz'],
+  }
+  class { 'apache':
+    default_vhost => false,
+  }
+  class { 'apache::php': }
+  apache::vhost { 'localhost':
+    docroot => "${webroot}/simpleid/www",
+    port    => '80',
+  }
+  file { "${webroot}/simpleid/www/config.inc":
+    owner => $webuser,
+    group => $webgroup,
+    mode  => '0750',
+    content => template('simpleid/config.inc.erb'),
+  }
 }

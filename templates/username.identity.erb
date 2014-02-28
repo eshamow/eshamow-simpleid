@@ -1,0 +1,138 @@
+; :mode=ini:
+; $Id$
+;
+;
+; SimpleID identity file.
+;
+; This file contains all the data associated with an identity.  It should
+; always be named username.identity, where username is the user name to be used
+; when logging into SimpleID.
+;
+; In this file, if a value contains non-numeric characters, you will need to
+; surround it with quotation characters.
+;
+
+;
+; The OpenID Identifier associated with this identity.  This is typically a
+; URL, although the OpenID specifications allow the use of URIs and even XRIs.
+;
+; Relying parties must be able to resolve the identity to obtain the address
+; of this SimpleID installation.
+;
+; WARNING: If you change the OpenID Identifier after you have used it in
+; SimpleID, you will need to delete all files named 'identity-*.cache' in the
+; cache directory.
+;
+; Examples:
+;    http://example.com/
+;    http://example.com:8888/
+;    http://example.com/myopenid
+;    https://example.com:8080/myopenid
+;
+identity="http://example.com/"
+
+;
+; The password associated with this identity.  This password is hashed using
+; the MD5 algorithm.
+;
+; There are various tools available which will give you the MD5 hash of any
+; given string.  If you have access to the command-line interface of PHP, you
+; can run the following command to give you the hash.
+;
+; php -r "print md5('example password');"
+;
+; Alternatively, you can upload the following PHP code to your web server, then
+; read off the hash with your web browser.  (This is recommended only if your
+; web server supports secure uploads (e.g. SFTP) and HTTPS, you that your
+; password is not sent over the Internet as clear text.)
+;
+; <?php header('Content-Type: text/plain'); print md5('example password'); ?>
+;
+; Alternatively, Wikipedia (http://en.wikipedia.org/wiki/MD5) has other resources
+; on generating this hash.
+;
+pass="c8e24ae844b7cb9381g722ae8209a19a"
+
+;
+; Whether this user is given administrative privileges in SimpleID.
+;
+; This setting has no effect in the current version of SimpleID.  However,
+; more functionality may be added to SimpleID in future versions which will
+; be restricted to SimpleID administrators.
+;
+; You should grant administrative privileges to at least one user.
+;
+; If you wish this user to be given administrative privileges, uncomment the
+; line below.
+;
+;administrator=1
+
+;
+; Simple Registration Extension data.
+;
+; If you want to provide registration data to relying parties which support the
+; Simple Registration Extension, uncomment the section below and fill
+; in your details.
+;
+; Further information on the Simple Registration Extension can be found at
+; http://simpleid.koinic.net/documentation/using-simpleid/extensions/simple-registration-extension
+;
+; Note, you must also enable the Simple Registration Extension in SimpleID.  To
+; do this, make sure the SIMPLEID_EXTENSIONS option in config.inc contains
+; sreg
+;
+;[sreg]
+;nickname="Example"
+;email="example@example.com"
+;fullname="Example"
+;dob="2000-00-00"
+;gender="M"
+;postcode="1234"
+;country="en"
+;language="au"
+;timezone="Australia/Sydney"
+
+
+;
+; Attribute Exchange Extension data.
+;
+; If you want to provide personal identity information data to relying parties
+; which support the Attribute Exchange Extension, uncomment the section below
+; and fill in your details.
+;
+; The format of this section is attribute type URI=attribute value.  Examples
+; are given below.
+;
+; For a full list of attributes, see http://openid.net/specs/openid-attribute-properties-list-1_0-01.html
+;
+; Note if you have already uncommented and filled out the Simple Registration
+; Extension data above, you do not need to fill out the corresponding
+; attributes again in the section below.  SimpleID will pick these up
+; automatically, including:
+;
+;    http://axschema.org/namePerson/friendly
+;    http://axschema.org/contact/email
+;    http://axschema.org/namePerson
+;    http://axschema.org/birthDate
+;    http://axschema.org/person/gender
+;    http://axschema.org/contact/postalCode/home
+;    http://axschema.org/contact/country/home
+;    http://axschema.org/pref/language
+;    http://axschema.org/pref/timezone
+;    http://openid.net/schema/namePerson/friendly
+;    http://openid.net/schema/contact/internet/email
+;    http://openid.net/schema/gender
+;    http://openid.net/schema/contact/postalCode/home
+;    http://openid.net/schema/contact/country/home
+;    http://openid.net/schema/language/pref
+;    http://openid.net/schema/timezone
+;
+; Note, you must also enable the Attribute Exchange Extension in SimpleID.  To
+; do this, make sure the SIMPLEID_EXTENSIONS option in config.inc contains
+; ax
+;
+;[ax]
+;http://openid.net/schema/company/name="Example Company Limited"
+;http://openid.net/schema/company/title="Managing Director"
+;http://openid.net/schema/contact/web/blog="http://simpleid.koinic.net/"
+
