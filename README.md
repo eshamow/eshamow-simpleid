@@ -21,7 +21,12 @@ Module to install/manage simpleid. Currently installs Apache+PHP for using puppe
 
 Module to install/manage simpleid. Currently installs Apache+PHP for using puppetlabs-apache.
 
-Currntly supported:
+IMPORTANT NOTE: This module currently sets up Apache to serve the password login page via HTTPS,
+then the actual authentication over HTTP, as OpenID does not support self-signed certs. If you
+want a more secure setup or your own certs, please set $manage_apache to false and set up your
+own webserver config.
+
+Currently supported:
 
 RHEL 6
 
@@ -51,3 +56,4 @@ Classify node with simpleid
 ##Limitations
 
 RHEL or CentOS 6 only
+

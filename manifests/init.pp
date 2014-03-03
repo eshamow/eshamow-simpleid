@@ -3,6 +3,10 @@
 # Installs SimpleID. This is a very naive PHP app installer that can optionally
 # control Apache.
 #
+# IMPORTANT NOTE: This module currently sets up Apache to serve the password login page via HTTPS,
+# then the actual authentication over HTTP, as OpenID does not support self-signed certs. If you
+# want a more secure setup or your own certs, please set $manage_apache to false and set up your
+# own webserver config.
 # === Parameters
 #
 # [*baseurl*]
@@ -47,7 +51,6 @@ class simpleid(
   $webgroup      = $simplid::params::webgroup,
   $app_source    = $simpleid::params::app_source,
   $manage_apache = true,
-  $apache_ssl    = true
 ) inherits simpleid::params {
   if $baseurl == undef {
     fail('You must define the $baseurl variable for class simpleid.')
