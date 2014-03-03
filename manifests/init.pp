@@ -22,6 +22,10 @@
 #   Location of the SimpleID download tarball. Defaults to
 #   http://downloads.sourceforge.net/project/simpleid/simpleid/0.8.5/simpleid-0.8.5.tar.gz
 #
+# [*manage_apache*]
+#   Boolean to determine whether the module should install and configure Apache.
+#   Defaults to true.
+#
 # === Examples
 #
 #  class { simpleid:
@@ -37,11 +41,12 @@
 # Copyright 2014 Puppet Labs
 #
 class simpleid(
-  $baseurl    = undef,
-  $webroot    = $simpleid::params::webroot,
-  $webuser    = $simpleid::params::webuser,
-  $webgroup   = $simplid::params::webgroup,
-  $app_source = $simpleid::params::app_source,
+  $baseurl       = undef,
+  $webroot       = $simpleid::params::webroot,
+  $webuser       = $simpleid::params::webuser,
+  $webgroup      = $simplid::params::webgroup,
+  $app_source    = $simpleid::params::app_source,
+  $manage_apache = true
 ) inherits simpleid::params {
   if $baseurl == undef {
     fail('You must define the $baseurl variable for class simpleid.')
