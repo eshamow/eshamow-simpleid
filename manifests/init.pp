@@ -46,7 +46,8 @@ class simpleid(
   $webuser       = $simpleid::params::webuser,
   $webgroup      = $simplid::params::webgroup,
   $app_source    = $simpleid::params::app_source,
-  $manage_apache = true
+  $manage_apache = true,
+  $apache_ssl    = true
 ) inherits simpleid::params {
   if $baseurl == undef {
     fail('You must define the $baseurl variable for class simpleid.')
@@ -67,13 +68,21 @@ class simpleid(
     recurse => true,
     require => Staging::Extract['simpleid.tar.gz'],
   }
-  class { 'apache':
-    default_vhost => false,
-  }
-  class { 'apache::php': }
-  apache::vhost { 'localhost':
-    docroot => "${webroot}/simpleid/www",
-    port    => '80',
+  if $manage_apache == true {
+    class { 'apache':
+      default_vhost => false,
+    }
+    class { 'apache::php': }
+    apache::vhost { 'localhost_ssl':
+      docroot => "${webroot}/simpleid/www",
+      port    => '443',
+      ssl     => true,
+    }
+    apache::vhost { 'localhost':
+      docroot => "${webroot}/simpleid/www",
+      port    => '80',
+      ssl     => false,
+    }
   }
   file { "${webroot}/simpleid/www/config.inc":
     owner => $webuser,
