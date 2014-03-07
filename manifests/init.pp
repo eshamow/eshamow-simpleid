@@ -48,7 +48,7 @@ class simpleid(
   $baseurl       = undef,
   $webroot       = $simpleid::params::webroot,
   $webuser       = $simpleid::params::webuser,
-  $webgroup      = $simplid::params::webgroup,
+  $webgroup      = $simpleid::params::webgroup,
   $app_source    = $simpleid::params::app_source,
   $manage_apache = true,
 ) inherits simpleid::params {
